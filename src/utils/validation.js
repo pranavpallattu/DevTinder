@@ -16,4 +16,35 @@ const validateSignupData = (req) => {
   }
 };
 
-module.exports={validateSignupData}
+const validateEditProfileData = (req) => {
+  const { firstName, lastName, age, gender, photoUrl, about, skills } =
+    req.body;
+
+  if (firstName && (firstName.length < 4 || firstName.length > 50)) {
+    throw new Error("first name should be 4 to 50 characters");
+  }
+   if (lastName && (lastName.length < 4 || lastName.length > 50)) {
+    throw new Error("last name should be 4 to 50 characters");
+  } 
+   if (photoUrl && !validator.isURL(photoUrl)) {
+    throw new Error("the photoURL field must be a valid URL");
+  } 
+   if (about && about.length > 200) {
+    throw new Error("the about should be under 200 characters");
+  } 
+   if (skills && skills.length > 5) {
+    throw new Error("skills cant be more than 5");
+  }
+  
+  const allowedUpdates = ["firstName","lastName", "age", "gender", "photoUrl", "about", "skills"];
+
+  const isUpdateAllowed = Object.keys(req.body).every((key) =>
+    allowedUpdates.includes(key)
+  );
+  if (!isUpdateAllowed){
+    throw new Error("Invalid fields ! Only allowed fields can be updated")
+  }
+  return true
+};
+
+module.exports = { validateSignupData, validateEditProfileData };
