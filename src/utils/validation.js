@@ -32,9 +32,6 @@ const validateEditProfileData = (req) => {
    if (about && about.length > 200) {
     throw new Error("the about should be under 200 characters");
   } 
-   if (skills && skills.length > 5) {
-    throw new Error("skills cant be more than 5");
-  }
   
   const allowedUpdates = ["firstName","lastName", "age", "gender", "photoUrl", "about", "skills"];
 

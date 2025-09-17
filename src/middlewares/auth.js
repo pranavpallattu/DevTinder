@@ -8,7 +8,8 @@ try{
     // Read the token from cookies
   const {token}=req.cookies
   if(!token){
-    throw new Error("token is not valid")
+    return res.status(401).send("Please Login")
+    // 401 - unauthorized
   }
   console.log(token);
   
