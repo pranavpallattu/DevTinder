@@ -48,12 +48,12 @@ authRouter.post("/login", async (req, res) => {
   try {
     const { emailId, password } = req.body;
     if (!validator.isEmail(emailId)) {
-      res.send("invalid credentials");
+      res.status(401).send("invalid credentials");
     }
 
     const user = await User.findOne({ emailId: emailId });
     if (!user) {
-      res.send("invalid credentials");
+      res.status(401).send("invalid credentials");
     }
 
     const isPasswordValid = await user.validatePassword(password);

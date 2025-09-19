@@ -8,6 +8,8 @@ const cors=require("cors")
 // creates an express application
 const app = express();
 
+require("dotenv").config();
+
 // app.options('/profile/edit', cors({
 //   credentials:true
 // }))
@@ -37,7 +39,7 @@ app.use("/",userRouter)
 connectDB()
   .then(() => {
     console.log("MongoDB Connected Successfully ");
-    app.listen(7777, () => {
+    app.listen(process.env.PORT, () => {
       console.log("server listening to 7777");
     });
   })

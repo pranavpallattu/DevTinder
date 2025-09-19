@@ -14,7 +14,7 @@ try{
   console.log(token);
   
   // validate the token
-  const decodedObj=jwt.verify(token,"devtinder@2025")
+  const decodedObj=jwt.verify(token,process.env.JWT_SECRET)
   console.log(decodedObj);
   const{_id}=decodedObj
   
