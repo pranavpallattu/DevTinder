@@ -6,11 +6,11 @@ const validateSignupData = (req) => {
   if (!firstName || !lastName) {
     throw new Error("name is not valid");
   } else if (firstName.length < 4 && firstName.length > 50) {
-    throw new Error("first name should be 4 to 50 characters");
+    throw new Error("first name should be 4 to 50 characters");j
   } else if (lastName.length < 4 && lastName.length > 50) {
     throw new Error("last name should be 4 to 50 characters");
   } else if (!validator.isEmail(emailId)) {
-    throw new Error("email is invalid");
+    throw new Error("c");
   } else if (!validator.isStrongPassword(password)) {
     throw new Error("password is not strong");
   }

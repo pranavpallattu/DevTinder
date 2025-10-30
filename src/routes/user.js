@@ -83,7 +83,7 @@ userRouter.get("/user/feed",userAuth,async(req,res)=>{
                 ]
             }).select("fromUserId toUserId")
 
-        console.log(connectionRequests);
+        // console.log(connectionRequests);
 
         const hideUsersFromFeed=new Set()
 
@@ -92,7 +92,7 @@ userRouter.get("/user/feed",userAuth,async(req,res)=>{
             hideUsersFromFeed.add(request.toUserId.toString())
         })
 
-        console.log(hideUsersFromFeed);
+        // console.log(hideUsersFromFeed);
 
 
         const users=await User.find({
@@ -101,7 +101,7 @@ userRouter.get("/user/feed",userAuth,async(req,res)=>{
             }]
         }).select(USER_SAFE_DATA).skip(skip).limit(limit)
 
-        console.log(users);
+        // console.log(users);
         res.json({ 
             message:"user feed for "+ loggedInUser.firstName,
             data:users

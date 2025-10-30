@@ -1,7 +1,7 @@
 const express = require("express");
 const { userAuth } = require("../middlewares/auth");
 const paymentRouter = express.Router();
-const razorpayInstance = require("../utils/razorpay");
+const {razorpayInstance} = require("../utils/razorpay");
 const paymentModel = require("../models/payment");
 const {memberShipAmount} = require("../utils/constants");
 const {validateWebhookSignature} = require('razorpay/dist/utils/razorpay-utils');
@@ -93,6 +93,24 @@ paymentRouter.post("/payment/webhook",async(req,res)=>{
     catch(error){
         res.status(401).send(error)
     }
+})
+
+
+paymentRouter.get("/premium/verify",userAuth,async(req,res)=>{
+  try{
+    const user=req.user
+    if(user.isPremium){
+      res.json({msg:user.firstName + " " + user.lastName +" is a premium member",isPremium:true})
+    }
+    else{
+      res.json({msg:user.firstName + " " + user.lastName +" is not a premium member",isPremium:false})
+    }
+    
+  }
+     catch(error){
+        res.status(401).send(error)
+    }
+
 })
 
 module.exports = paymentRouter;

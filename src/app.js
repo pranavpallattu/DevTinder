@@ -1,18 +1,29 @@
+
 const express = require("express");
 require("./config/database");
+require("dotenv").config();
 const User = require("./models/user");
 const connectDB = require("./config/database");
 const cookieParser=require("cookie-parser")
 const { userAuth } = require("./middlewares/auth");
+const initializeSocket=require("./utils/socket")
 const cors=require("cors")
+
+const http=require("http")
+// import { createServer } from "http";
+// import { Server } from "socket.io";
+
+
 // creates an express application
 const app = express();
 
-require("dotenv").config();
+const server=http.createServer(app)
 
-// app.options('/profile/edit', cors({
-//   credentials:true
-// }))
+initializeSocket(server)
+
+
+
+
 
 app.use(cors({
   origin:"http://localhost:5173",
@@ -41,7 +52,7 @@ app.use("/",paymentRouter)
 connectDB()
   .then(() => {
     console.log("MongoDB Connected Successfully ");
-    app.listen(process.env.PORT, () => {
+    server.listen(process.env.PORT, () => {
       console.log("server listening to 7777");
     });
   })

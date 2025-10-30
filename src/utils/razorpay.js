@@ -5,4 +5,4 @@ var instance = new Razorpay({
   key_secret: process.env.KEY_SECRET,
 });
 
-module.exports=instance
+module.exports={instance}
